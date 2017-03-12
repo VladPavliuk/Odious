@@ -1,24 +1,29 @@
 <?php
 
-class MainController
+class MainController extends Controller
 {
     public function indexAction()
     {
-        // Smarty initialization
-        $smarty = SmartyRun::connect();
+        /* Uncomment when test_sql.sql will execute
+        $allItems = $this->getAllItems(4) ;
+        $item = $this->getSingleItem(2) ;
 
-        $smarty->display("contents/welcome.tpl");
+        $this->smarty->assign("allItems", $allItems);
+        $this->smarty->assign("item", $item);
+        */
+
+        $this->smarty->display("contents/homePage.tpl");
     }
 
-    private function getAllItems()
+    private function getAllItems($limitOfItems)
     {
         $mainModel = new Main();
-        $mainModel->getAllItems();
+        return $mainModel->getAllItems($limitOfItems);
     }
 
     private function getSingleItem($id)
     {
         $mainModel = new Main();
-        $mainModel->getSingleItem($id);
+        return $mainModel->getSingleItem($id);
     }
 }

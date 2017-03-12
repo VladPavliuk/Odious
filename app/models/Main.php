@@ -1,24 +1,23 @@
 <?php
 
-class Main
+class Main extends Model
 {
     /**
      * Return all items
      *
+     * @param $limitOfItems
      * @return array
      */
-    public function getAllItems()
+    public function getAllItems($limitOfItems)
     {
-        $db = DataBase::connect();
+        $limitOfItems = $limitOfItems > 10 ? 10 : $limitOfItems;
 
-        $queryResult = $db->query("SELECT * FROM `table_name`");
+        $queryResult = $this->dataBase->query("SELECT * FROM `users` LIMIT {$limitOfItems}");
 
         $itemsList = [];
-        $i = 0;
+        $i = 1;
         while($row = $queryResult->fetch()) {
-            $itemsList[$i]["first_row"] = $row[$i]["first_row_in_db"];
-            $itemsList[$i]["second_row"] = $row[$i]["second_row_in_db"];
-            $itemsList[$i]["third_row"] = $row[$i]["third_row_in_db"];
+            $itemsList[$i++] = $row;
         }
 
         return $itemsList;
@@ -34,9 +33,7 @@ class Main
     {
         $id = intval($id);
 
-        $db = DataBase::connect();
-
-        $queryResult = $db->query("SELECT * FROM `table_name` WHERE id=`{$id}`");
+        $queryResult = $this->dataBase->query("SELECT * FROM `users` WHERE `id`={$id}");
 
         $singleItem = $queryResult->fetch();
 

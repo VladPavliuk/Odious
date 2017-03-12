@@ -14,17 +14,6 @@ class Router
     use AnalyzerURI, AnalyzerInnerPath, AnalyzerModelsConnect;
 
     /**
-     * If some went wrong this function will execute.
-     *
-     * @param $errorMessage
-     */
-    public static function showErrorPage($errorMessage)
-    {
-        $errorMessage = DEBUG_MODE ? $errorMessage : "Невідома помилка";
-        exit($errorMessage);
-    }
-
-    /**
      * Start router
      *
      * Router constructor.

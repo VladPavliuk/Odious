@@ -60,7 +60,7 @@ trait AnalyzerURI
             }
         }
         // Route did not find
-        Router::showErrorPage($this->routeError);
+        Debug::showErrorPage($this->routeError);
     }
 
     /**
@@ -98,7 +98,7 @@ trait AnalyzerURI
             $this->routesArray = include($this->routesPath);
         } else {
             // Some went wrong!
-            Router::showErrorPage($this->routesArrayError);
+            Debug::showErrorPage($this->routesArrayError);
         }
     }
 }

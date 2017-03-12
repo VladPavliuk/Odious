@@ -19,6 +19,7 @@ trait AnalyzerInnerPath
     //<
 
     //> List of error messages
+    private $controllerCoreClassError = "Файлу із головним класом контролер не знайдено";
     private $controllerFileError = "Файлу із контролером не знайдено";
     private $controllerClassError = "Клас контролер не знайдено";
     private $actionMethodError = "Метод в контролері не знайдено";
@@ -45,8 +46,27 @@ trait AnalyzerInnerPath
         $controllerClass = ucfirst($controllerClass);
         $controllerClass = $controllerClass . CONTROLLER_POSTFIX;
 
+        $this->includeCoreControllerFile();
         $this->includeControllerFile($controllerClass);
         $this->getControllerObj($controllerClass);
+    }
+
+    /**
+     * Include file with parent controller class
+     * which will extends to every controller class
+     *
+     */
+    private function includeCoreControllerFile()
+    {
+        // Define full path
+        $coreControllerFile = $this->controllersFolderPath . 'Controller.php';
+
+        if (file_exists($coreControllerFile)) {
+            require_once($coreControllerFile);
+        } else {
+            // Some went wrong!
+            Debug::showErrorPage($this->controllerCoreClassError);
+        }
     }
 
     /**
@@ -63,7 +83,7 @@ trait AnalyzerInnerPath
             require_once($controllerFile);
         } else {
             // Some went wrong!
-            Router::showErrorPage($this->controllerFileError);
+            Debug::showErrorPage($this->controllerFileError);
         }
     }
 
@@ -78,7 +98,7 @@ trait AnalyzerInnerPath
             $this->controllerObj = new $controllerClass();
         } else {
             // Some went wrong!
-            Router::showErrorPage($this->controllerClassError);
+            Debug::showErrorPage($this->controllerClassError);
         }
     }
 
@@ -92,7 +112,7 @@ trait AnalyzerInnerPath
             $this->actionMethod = $actionMethod;
         } else {
             // Some went wrong!
-            Router::showErrorPage($this->actionMethodError);
+            Debug::showErrorPage($this->actionMethodError);
         }
     }
 

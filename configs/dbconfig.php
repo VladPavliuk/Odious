@@ -6,7 +6,7 @@
  */
 return [
     'dbHost' => 'localhost',
-    'dbName' => 'armazon',
+    'dbName' => 'data_base',
     'dbUser' => 'root',
     'dbPassword' => '',
 ];
