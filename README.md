@@ -4,7 +4,7 @@ Simple PHP Framework
 <h2>Install steps</h2>
 <ol>
     <li> 
-        Clone GitHub repositorie from: <br>
+        Clone GitHub repository from: <br>
         https://github.com/VladPavliuk/Odious
     </li>
     <li>
